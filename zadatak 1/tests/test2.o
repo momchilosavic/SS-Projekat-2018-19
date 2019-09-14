@@ -1,0 +1,78 @@
+
+#tabela simbola
+	#ime				#sekcija		#vrednost		#vidljivost		#redni broj
+	.bss            	.bss            0               l               0
+	.data           	.data           0               l               1
+	.text           	.text           0               l               2
+	.labels_section 	.labels_section 0               l               3
+	label1          	.labels_section 0               l               4
+	label2          	.labels_section 3               l               5
+	label3          	.labels_section 8               l               6
+	label4          	.labels_section 14              l               7
+	.absolute_addresing	.absolute_addresing0               l               8
+	equ_label       	*ABS*           4660            l               9
+	.immed_addressing	.immed_addressing0               l               10
+	immed_label     	*ABS*           4660            l               11
+	.reg_addressing 	.reg_addressing 0               l               12
+	.mem_addressing 	.mem_addressing 0               l               13
+
+
+#ret.bss
+	#offset		#tip		#redni broj[.bss]
+
+
+#ret.data
+	#offset		#tip		#redni broj[.data]
+
+
+#ret.text
+	#offset		#tip		#redni broj[.text]
+
+
+#ret.labels_section
+	#offset		#tip		#redni broj[.labels_section]
+
+
+#ret.absolute_addresing
+	#offset		#tip		#redni broj[.absolute_addresing]
+	000e		R_386_PC16		4
+
+
+#ret.immed_addressing
+	#offset		#tip		#redni broj[.immed_addressing]
+	000c		R_386_8		4
+
+
+#ret.reg_addressing
+	#offset		#tip		#redni broj[.reg_addressing]
+	0010		R_386_PC16		5
+
+
+#ret.mem_addressing
+	#offset		#tip		#redni broj[.mem_addressing]
+	0006		R_386_PC16		4
+
+
+#.bss
+
+
+#.data
+
+
+#.text
+
+
+#.labels_section
+00 00 00 00 00 00 00 00 ff ff 00 00 ff ff 7f 00 7f 00 
+
+#.absolute_addresing
+24 22 00 34 12 2c a0 11 11 00 0f 27 30 a0 00 00 00 34 
+
+#.immed_addressing
+4c 22 00 cc 00 8c 00 34 12 38 22 00 00 
+
+#.reg_addressing
+28 23 42 20 62 03 24 34 8c 34 12 82 ff ff 94 80 00 00 
+
+#.mem_addressing
+1c a0 55 55 2c a0 00 00 a0 54 76 

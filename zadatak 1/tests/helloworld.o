@@ -1,0 +1,37 @@
+
+#tabela simbola
+	#ime				#sekcija		#vrednost		#vidljivost		#redni broj
+	.bss            	.bss            0               l               0
+	.data           	.data           0               l               1
+	.text           	.text           0               l               2
+	string          	.data           0               l               3
+	string_end      	.data           16              l               4
+	duzina          	*ABS*           15              l               5
+	printf          	*UND*           -1              g               6
+	exit            	*UND*           -1              g               7
+	_start          	.text           0               g               8
+
+
+#ret.bss
+	#offset		#tip		#redni broj[.bss]
+
+
+#ret.data
+	#offset		#tip		#redni broj[.data]
+
+
+#ret.text
+	#offset		#tip		#redni broj[.text]
+	0006		R_386_16		3
+	000c		R_386_16		6
+	0017		R_386_16		7
+
+
+#.bss
+
+
+#.data
+5a 64 72 61 76 6f 20 73 76 65 74 65 21 5c 6e 00 
+
+#.text
+8c 00 0f 00 8c 00 00 8c 00 00 bc a0 00 00 2c 2c 00 0c 8c 00 00 bc a0 00 00 
