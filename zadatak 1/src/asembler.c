@@ -18,8 +18,9 @@ int checkInputArguments(int argc, char** argv){
 	char* inputPattern = "^[_|a-z|0-9]+.s$";//"[_[:alphanum:]]+.s";
 	int i;
 	int outputFlag = 0;
+	int inputFlag = 0;
 
-	if(argc < 4)
+	if(argc != 4)
 		return 0;
 
 	for(i = 1; i < argc; i++){

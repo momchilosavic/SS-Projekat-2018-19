@@ -335,7 +335,7 @@ int isDirective(char* line, Context** context, int pass){
 			Symbol* sym = findSymbol(&((*context)->symbolTable->head), word);
 			if(sym != NULL){
 				printf("\nERROR: MULTIPLE DEFINITION OF SYMBOL \"%s\"", word);
-				return 0;
+				return -1;
 			}
 			else
 				sym = addSymbol(&((*context)->symbolTable->head), &((*context)->symbolTable->tail), word, NULL, -1, 0, (*context)->order++);
@@ -353,7 +353,7 @@ int isDirective(char* line, Context** context, int pass){
 			Symbol* sym = findSymbol(&((*context)->symbolTable->head), word);
 			if(sym == NULL){
 				printf("\n\tERROR: SYMBOL \"%s\" NOT DEFINED", word);
-				return 0;
+				return -1;
 			}
 			sym->isLocal = 0;
 		}
@@ -371,9 +371,9 @@ int isDirective(char* line, Context** context, int pass){
 			strcpy((*context)->currentSymbol->name, word);
 			word = strtok(NULL, ",");
 			word = trim(word, NULL);
-			if(match((*context)->currentSymbol->name, "^.[_[:alpha:]][_[:alnum:]]*$") == 0 && findSymbol(&((*context)->symbolTable->head), (*context)->currentSymbol->name) != NULL){
+			if(findSymbol(&((*context)->symbolTable->head), (*context)->currentSymbol->name) != NULL){
 				printf("\n\tERROR: MULTIPLE DEFINITION OF SYMBOL %s \n\t\tLINE %d\n", (*context)->currentSymbol->name, (*context)->lineCount);
-				return 0;
+				return -1;
 			}
 			addSymbol(&((*context)->symbolTable->head), &((*context)->symbolTable->tail), (*context)->currentSymbol->name, NULL, (int)atoi(word), 1, (*context)->order++);
 		}
@@ -682,8 +682,14 @@ void updateContext(Context** context){
 					addRelocation(&((*context)->relocationTable->head), &((*context)->relocationTable->tail), section, section->offset, R16, sym->order);
 					value = 0;
 				}
-				else
-					value = sym->offset;
+				else{
+					if(sym->section == NULL && sym->isLocal == 1)
+						value = sym->offset;
+					else{
+						addRelocation(&((*context)->relocationTable->head), &((*context)->relocationTable->tail), section, section->offset, sym->section == NULL?R16:PC16, sym->order);
+						value = 0;
+					}
+				}
 			}
 		}
 		addContext(&(section->table->head), &(section->table->tail), section->offset++, (char)value);
@@ -855,8 +861,14 @@ void updateContext(Context** context){
 					addRelocation(&((*context)->relocationTable->head), &((*context)->relocationTable->tail), section, section->offset, R16, sym->order);
 					value = 0;
 				}
-				else
-					value = sym->offset;
+				else{
+					if(sym->section == NULL && sym->isLocal == 1)
+						value = sym->offset;
+					else{
+						addRelocation(&((*context)->relocationTable->head), &((*context)->relocationTable->tail), section, section->offset, sym->section == NULL?R16:PC16, sym->order);
+						value = 0;
+					}
+				}
 			}
 		}
 		addContext(&(section->table->head), &(section->table->tail), section->offset++, (char)value);
